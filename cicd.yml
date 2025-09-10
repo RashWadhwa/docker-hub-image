@@ -6,13 +6,13 @@ on:
     branches: [ main ]
 
 jobs:
-  dockerbuild:
-    runs-on: ubuntu-latest
-    steps:
+  #dockerbuild:
+    #runs-on: ubuntu-latest
+    #steps:
     # Step 1: Check out the code from the repository
-    - uses: actions/checkout@v4
-    - name: Build The Docker Image
-      run: docker build . --file DockerFile --tag workflow-test:$(date +%s)
+    #- uses: actions/checkout@v4
+    #- name: Build The Docker Image
+     # run: docker build . --file DockerFile --tag workflow-test:$(date +%s)
   build-and-test:
     runs-on: ubuntu-latest
 
@@ -32,7 +32,8 @@ jobs:
         pip install pytest
 
     - name: Run tests
-      run: pytest
+      run: |
+        pytest
 
   build-and-publish:
     needs: build-and-test
@@ -61,5 +62,6 @@ jobs:
 
     - name: Image digest
       run: echo ${{ steps.build-and-publish.outputs.digest }}
+
 
 
